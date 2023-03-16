@@ -34,8 +34,17 @@ public class DadosEmListas implements GerenciadorConsultas {
 
     @Override
     public void cadastrarPacientes() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cadastrarPacientes'");
+        System.out.println("Cadastre o medico");
+        System.out.print("CPF ");
+        String cpf = new Scanner(System.in).next();
+        System.out.print("NOME ");
+        String nome = new Scanner(System.in).nextLine();
+        System.out.print("DAATA NASCIMENTO (dd-MM-yyyy) ");
+        LocalDate dataAniversario = LocalDate.parse(new Scanner(System.in).next(), dFormatter);
+        LocalDate dataCadastro = LocalDate.now();
+
+        pacientes.add(new Paciente(cpf, nome, dataAniversario, dataCadastro));
+        System.out.println("cadastro inserido com sucesso");
     }
 
     @Override
