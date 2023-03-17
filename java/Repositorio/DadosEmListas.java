@@ -26,7 +26,7 @@ public class DadosEmListas implements GerenciadorConsultas {
         String crm = new Scanner(System.in).next();
         System.out.print("NOME ");
         String nome = new Scanner(System.in).nextLine();
-        System.out.print("DAATA NASCIMENTO (dd-MM-yyyy) ");
+        System.out.print("DATA NASCIMENTO (dd-MM-yyyy) ");
         LocalDate dataAniversario = LocalDate.parse(new Scanner(System.in).next(), dFormatter);
         LocalDate dataCadastro = LocalDate.now();
 
@@ -57,6 +57,8 @@ public class DadosEmListas implements GerenciadorConsultas {
         Medico medico = pegarPorCrm(new Scanner(System.in).next());
         System.out.print("DATA HORA (dd-MM-yyyy) ");
         LocalDateTime dataConsulta = LocalDateTime.parse(new Scanner(System.in).next(), dFormatterH);
+        System.out.print("insira flag Destino");
+        String flagDestino = new Scanner(System.in).nextLine();
 
     }
 

@@ -9,7 +9,6 @@ public class Medico extends Pessoa {
     public Medico(String crm, String nome, LocalDate dataNascimento, LocalDate dataCadastro) {
         super(nome, dataNascimento, dataCadastro);
         this.crm = crm;
-
     }
 
     public String getCrm() {
