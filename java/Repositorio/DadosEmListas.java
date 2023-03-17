@@ -13,6 +13,7 @@ import models.Paciente;
 
 public class DadosEmListas implements GerenciadorConsultas {
     public static DateTimeFormatter dFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    public static DateTimeFormatter dFormatterH = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:MM");
     public static List<Medico> medicos = new ArrayList<>();
     public static List<Paciente> pacientes = new ArrayList<>();
     public static List<Consulta> consultas = new ArrayList<>();
@@ -39,7 +40,7 @@ public class DadosEmListas implements GerenciadorConsultas {
         String cpf = new Scanner(System.in).next();
         System.out.print("NOME ");
         String nome = new Scanner(System.in).nextLine();
-        System.out.print("DAATA NASCIMENTO (dd-MM-yyyy) ");
+        System.out.print("DATA NASCIMENTO (dd-MM-yyyy) ");
         LocalDate dataAniversario = LocalDate.parse(new Scanner(System.in).next(), dFormatter);
         LocalDate dataCadastro = LocalDate.now();
 
@@ -49,8 +50,29 @@ public class DadosEmListas implements GerenciadorConsultas {
 
     @Override
     public void cadastrarConsultas() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cadastrarConsultas'");
+        System.out.println("insira o cpf do paciente");
+        Paciente paciente = pegarPorCpf(new Scanner(System.in).next());
+        System.out.println("insira o crm do paciente");
+        Medico medico = pegarPorCrm(new Scanner(System.in).next());
+
+    }
+
+    public Paciente pegarPorCpf(String cpf) {
+        for (Paciente paciente : pacientes) {
+            if (paciente.getCpf().equals(cpf)) {
+                return paciente;
+            }
+        }
+        return null;
+    }
+
+    public Medico pegarPorCrm(String crm) {
+        for (Medico medico : medicos) {
+            if (medico.getCrm().equals(crm)) {
+                return medico;
+            }
+        }
+        return null;
     }
 
     @Override

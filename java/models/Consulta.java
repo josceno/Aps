@@ -1,22 +1,21 @@
 package models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Consulta {
     private Medico medico;
     private Paciente paciente;
-    private LocalDate dataConsulta;
-    private LocalDate horaConsulta;
+    private LocalDateTime dataConsulta;
     private String flagDestino;
     private StatusConsulta statusConsulta;
     private double valorConsulta;
 
-    public Consulta(Medico medico, Paciente paciente, LocalDate dataConsulta, LocalDate horaConsulta,
+    public Consulta(Medico medico, Paciente paciente, LocalDateTime dataConsulta, LocalDate horaConsulta,
             String flagDestino, StatusConsulta statusConsulta, double valorConsulta) {
         this.medico = medico;
         this.paciente = paciente;
         this.dataConsulta = dataConsulta;
-        this.horaConsulta = horaConsulta;
         this.flagDestino = flagDestino;
         this.statusConsulta = statusConsulta;
         this.valorConsulta = valorConsulta;
@@ -38,20 +37,12 @@ public class Consulta {
         this.paciente = paciente;
     }
 
-    public LocalDate getDataConsulta() {
+    public LocalDateTime getDataConsulta() {
         return dataConsulta;
     }
 
-    public void setDataConsulta(LocalDate dataConsulta) {
+    public void setDataConsulta(LocalDateTime dataConsulta) {
         this.dataConsulta = dataConsulta;
-    }
-
-    public LocalDate getHoraConsulta() {
-        return horaConsulta;
-    }
-
-    public void setHoraConsulta(LocalDate horaConsulta) {
-        this.horaConsulta = horaConsulta;
     }
 
     public String getFlagDestino() {
@@ -81,7 +72,7 @@ public class Consulta {
     @Override
     public String toString() {
         return "Consulta [medico=" + medico + ", paciente=" + paciente + ", dataConsulta=" + dataConsulta
-                + ", horaConsulta=" + horaConsulta + ", flagDestino=" + flagDestino + ", statusConsulta="
+                + ", flagDestino=" + flagDestino + ", statusConsulta="
                 + statusConsulta + ", valorConsulta=" + valorConsulta + "]";
     }
 

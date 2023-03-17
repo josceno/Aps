@@ -11,6 +11,10 @@ public class Paciente extends Pessoa {
 
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

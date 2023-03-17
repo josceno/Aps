@@ -4,51 +4,23 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Medico extends Pessoa {
-    private String crml;
+    private String crm;
 
-    public Medico(String crml, String nome, LocalDate dataNascimento, LocalDate dataCadastro) {
+    public Medico(String crm, String nome, LocalDate dataNascimento, LocalDate dataCadastro) {
         super(nome, dataNascimento, dataCadastro);
-        this.crml = crml;
+        this.crm = crm;
 
     }
 
-    public String getCrml() {
-        return crml;
-    }
-
-    public void setCrml(String crml) {
-        this.crml = crml;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public LocalDate getDataCadastro() {
-        return dataCadastro;
-    }
-
-    public void setDataCadastro(LocalDate dataCadastro) {
-        this.dataCadastro = dataCadastro;
+    public String getCrm() {
+        return crm;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((crml == null) ? 0 : crml.hashCode());
+        result = prime * result + ((crm == null) ? 0 : crm.hashCode());
         result = prime * result + ((nome == null) ? 0 : nome.hashCode());
         result = prime * result + ((dataCadastro == null) ? 0 : dataCadastro.hashCode());
         return result;
@@ -63,10 +35,10 @@ public class Medico extends Pessoa {
         if (getClass() != obj.getClass())
             return false;
         Medico other = (Medico) obj;
-        if (crml == null) {
-            if (other.crml != null)
+        if (crm == null) {
+            if (other.crm != null)
                 return false;
-        } else if (!crml.equals(other.crml))
+        } else if (!crm.equals(other.crm))
             return false;
         if (nome == null) {
             if (other.nome != null)
@@ -83,7 +55,7 @@ public class Medico extends Pessoa {
 
     @Override
     public String toString() {
-        return "Medico [crml=" + crml + ", nome=" + nome + ", dataNascimento=" + dataNascimento + ", dataCadastro="
+        return "Medico [crm=" + crm + ", nome=" + nome + ", dataNascimento=" + dataNascimento + ", dataCadastro="
                 + dataCadastro + "]";
     }
 
