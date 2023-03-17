@@ -1,6 +1,7 @@
 package Repositorio;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,8 @@ public class DadosEmListas implements GerenciadorConsultas {
         Paciente paciente = pegarPorCpf(new Scanner(System.in).next());
         System.out.println("insira o crm do paciente");
         Medico medico = pegarPorCrm(new Scanner(System.in).next());
+        System.out.print("DATA HORA (dd-MM-yyyy) ");
+        LocalDateTime dataConsulta = LocalDateTime.parse(new Scanner(System.in).next(), dFormatterH);
 
     }
 
