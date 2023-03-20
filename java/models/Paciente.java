@@ -10,6 +10,12 @@ public class Paciente extends Pessoa {
         this.cpf = cpf;
 
     }
+    public Paciente(String cpf, String nome, LocalDate dataNascimento) {
+        super(nome, dataNascimento);
+        this.cpf = cpf;
+        this.dataCadastro = dataCadastro.now();
+
+    }
 
     public String getCpf() {
         return cpf;

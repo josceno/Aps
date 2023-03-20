@@ -2,8 +2,11 @@ package models;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Consulta {
+    public  DateTimeFormatter dFormatterH = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private int codigo;
     private Medico medico;
     private Paciente paciente;
     private LocalDateTime dataConsulta;
@@ -11,8 +14,9 @@ public class Consulta {
     private StatusConsulta statusConsulta;
     private double valorConsulta;
 
-    public Consulta(Medico medico, Paciente paciente, LocalDateTime dataConsulta, LocalDate horaConsulta,
+    public Consulta(int codigo,Medico medico, Paciente paciente, LocalDateTime dataConsulta, LocalDate horaConsulta,
             String flagDestino, StatusConsulta statusConsulta, double valorConsulta) {
+        this.codigo = codigo;
         this.medico = medico;
         this.paciente = paciente;
         this.dataConsulta = dataConsulta;
@@ -21,6 +25,7 @@ public class Consulta {
         this.valorConsulta = valorConsulta;
     }
 
+    
     public Medico getMedico() {
         return medico;
     }
@@ -68,12 +73,18 @@ public class Consulta {
     public void setValorConsulta(double valorConsulta) {
         this.valorConsulta = valorConsulta;
     }
+    public int getCodigo() {
+        return codigo;
+    }
 
     @Override
     public String toString() {
-        return "Consulta [medico=" + medico + ", paciente=" + paciente + ", dataConsulta=" + dataConsulta
-                + ", flagDestino=" + flagDestino + ", statusConsulta="
-                + statusConsulta + ", valorConsulta=" + valorConsulta + "]";
+        return "Consulta:\nmedico:" + medico.getNome()+ "\npaciente: " + paciente.getNome() + "\ndata agentamento: " + dataConsulta.format(dFormatterH)
+                + "\nflag Destino: " + flagDestino + "\nstatus: "
+                + statusConsulta + "\nvalor consulta: " + String.format("%.2f", valorConsulta);
     }
+
+
+   
 
 }

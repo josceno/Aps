@@ -10,6 +10,11 @@ public class Medico extends Pessoa {
         super(nome, dataNascimento, dataCadastro);
         this.crm = crm;
     }
+    public Medico(String crm, String nome, LocalDate dataNascimento) {
+        super(nome, dataNascimento);
+        this.crm = crm;
+        this.dataCadastro = dataCadastro.now();
+    }
 
     public String getCrm() {
         return crm;

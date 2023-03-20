@@ -12,6 +12,11 @@ public abstract class Pessoa {
         this.dataNascimento = dataNascimento;
         this.dataCadastro = dataCadastro;
     }
+    public Pessoa(String nome, LocalDate dataNascimento) {
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.dataCadastro = dataCadastro.now();
+    }
 
     public String getNome() {
         return nome;

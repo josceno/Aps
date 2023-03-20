@@ -7,17 +7,43 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.sound.sampled.SourceDataLine;
+
 import application.GerenciadorConsultas;
 import models.Consulta;
 import models.Medico;
 import models.Paciente;
+import models.StatusConsulta;
 
 public class DadosEmListas implements GerenciadorConsultas {
-    public static DateTimeFormatter dFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    public static DateTimeFormatter dFormatterH = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:MM");
+    public static DateTimeFormatter dFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    public static DateTimeFormatter dFormatterH = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     public static List<Medico> medicos = new ArrayList<>();
     public static List<Paciente> pacientes = new ArrayList<>();
     public static List<Consulta> consultas = new ArrayList<>();
+
+    public static void pupuladorMedicosTeste(){
+        medicos.add(new Medico("1234", "Dr. John", LocalDate.of(1980, 5, 12), LocalDate.now()));
+        medicos.add(new Medico("5678", "Dr. Jane", LocalDate.of(1975, 9, 3), LocalDate.now()));
+        medicos.add(new Medico("9012", "Dr. Sarah", LocalDate.of(1990, 1, 20), LocalDate.now()));
+        medicos.add(new Medico("3456", "Dr. David", LocalDate.of(1985, 11, 7), LocalDate.now()));
+        medicos.add(new Medico("7890", "Dr. Lisa", LocalDate.of(1970, 7, 28), LocalDate.now()));
+        System.out.println("Populador de Medicos de teste acionado");
+    }
+    public static void pupuladorPacientesTeste(){
+        pacientes.add(new Paciente("111.111.111-11", "John Doe", LocalDate.of(1990, 5, 12), LocalDate.now()));
+        pacientes.add(new Paciente("222.222.222-22", "Jane Doe", LocalDate.of(1985, 9, 3), LocalDate.now()));
+        pacientes.add(new Paciente("333.333.333-33", "Sarah Smith", LocalDate.of(1995, 1, 20), LocalDate.now()));
+        pacientes.add(new Paciente("555.555.555-55", "Lisa Williams", LocalDate.of(1975, 7, 28), LocalDate.now()));
+        System.out.println("Populador de Pacientes de teste acionado");
+    }
+    /*public static void populadorConsultaTeste(){
+        consultas.add();
+        consultas.add();
+        consultas.add();
+        consultas.add();
+        consultas.add()
+    }*/
 
     @Override
     public void cadastrarMedicos() {
@@ -26,7 +52,7 @@ public class DadosEmListas implements GerenciadorConsultas {
         String crm = new Scanner(System.in).next();
         System.out.print("NOME ");
         String nome = new Scanner(System.in).nextLine();
-        System.out.print("DATA NASCIMENTO (dd-MM-yyyy) ");
+        System.out.print("DATA NASCIMENTO (dd/MM/yyyy) ");
         LocalDate dataAniversario = LocalDate.parse(new Scanner(System.in).next(), dFormatter);
         LocalDate dataCadastro = LocalDate.now();
 
@@ -41,7 +67,7 @@ public class DadosEmListas implements GerenciadorConsultas {
         String cpf = new Scanner(System.in).next();
         System.out.print("NOME ");
         String nome = new Scanner(System.in).nextLine();
-        System.out.print("DATA NASCIMENTO (dd-MM-yyyy) ");
+        System.out.print("DATA NASCIMENTO (dd/MM/yyyy) ");
         LocalDate dataAniversario = LocalDate.parse(new Scanner(System.in).next(), dFormatter);
         LocalDate dataCadastro = LocalDate.now();
 
@@ -51,15 +77,31 @@ public class DadosEmListas implements GerenciadorConsultas {
 
     @Override
     public void cadastrarConsultas() {
-        System.out.println("insira o cpf do paciente");
+        System.out.print("insira o cpf do paciente: ");
         Paciente paciente = pegarPorCpf(new Scanner(System.in).next());
-        System.out.println("insira o crm do paciente");
+        System.out.print("insira o crm do paciente: ");
         Medico medico = pegarPorCrm(new Scanner(System.in).next());
-        System.out.print("DATA HORA (dd-MM-yyyy) ");
-        LocalDateTime dataConsulta = LocalDateTime.parse(new Scanner(System.in).next(), dFormatterH);
-        System.out.print("insira flag Destino");
+        System.out.print("DATA HORA (dd/MM/yyyy HH:MM) ");
+        LocalDateTime dataConsulta = LocalDateTime.parse(new Scanner(System.in).nextLine(), dFormatterH);
+        System.out.print("insira flag Destino: ");
         String flagDestino = new Scanner(System.in).nextLine();
-
+        System.out.print("Consulta status: 1 agendar, 0 cancelada: ");
+        StatusConsulta status = (new Scanner(System.in).nextInt() == 0) ? StatusConsulta.CANCELADA:StatusConsulta.AGENDADA;
+        System.out.println("valor da consulta: ");
+        double valorConsulta = (testasPrimeiraConsulta(paciente)) ? 300.00:350.00;
+        int codigo = consultas.size();
+        
+        consultas.add(new Consulta(codigo, medico, paciente, dataConsulta, null, flagDestino, status, valorConsulta));
+        
+        System.out.println("Cadastro inserido com sucesso");
+    }
+    public boolean testasPrimeiraConsulta(Paciente paciente){
+        for (Consulta consulta : consultas) {
+            if(consulta.getPaciente().getCpf() == paciente.getCpf()){
+                return false;
+            }          
+        }
+        return true;
     }
 
     public Paciente pegarPorCpf(String cpf) {
@@ -81,15 +123,25 @@ public class DadosEmListas implements GerenciadorConsultas {
     }
 
     @Override
-    public void cancelarConsultas() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cancelarConsultas'");
+    public void cancelarConsultas(String cpf, LocalDateTime data, String crm) {
+        for (int i = 0; i<consultas.size(); i++) {
+            if(consultas.get(i).getPaciente().getCpf().equals(cpf) && consultas.get(i).getDataConsulta().equals(data) && consultas.get(i).getMedico().getCrm().equals(crm)){
+                consultas.get(i).setStatusConsulta(StatusConsulta.CANCELADA);
+                System.out.println(consultas.get(i)+":  cancelada com sucesso");
+            }
+        }
+
     }
 
     @Override
-    public void exibirConsultasAgendadas() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'exibirConsultasAgendadas'");
+    public void exibirConsultasAgendadas(LocalDateTime data, String crm) {
+        for (Consulta consulta : consultas) {
+            if(consulta.getDataConsulta() == data && consulta.getMedico().getCrm() == crm){
+                System.out.println(consulta);
+            }
+            
+        }
+       
     }
 
 }

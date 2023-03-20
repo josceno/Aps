@@ -1,5 +1,8 @@
 package application;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public interface GerenciadorConsultas {
 
     public void cadastrarMedicos();
@@ -8,8 +11,8 @@ public interface GerenciadorConsultas {
 
     public void cadastrarConsultas();
 
-    public void cancelarConsultas();
+    public void cancelarConsultas(String cpf, LocalDateTime data, String crm);
 
-    public void exibirConsultasAgendadas();
+    public void exibirConsultasAgendadas(LocalDateTime data, String crm);
 
 }
