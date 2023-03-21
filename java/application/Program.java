@@ -29,7 +29,7 @@ class Program {
             do{
                 System.out.print(">> ");
                 opcao = new Scanner(System.in).nextInt();
-                System.out.println(); 
+                
             }while(opcao != 1 && opcao !=2 && opcao != 3  && opcao != 4 && opcao !=5 && opcao !=0);
 
             switch(opcao){

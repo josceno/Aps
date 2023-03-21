@@ -93,7 +93,7 @@ public class DadosEmListas implements GerenciadorConsultas {
     public void cadastrarConsultas() {
         System.out.print("insira o cpf do paciente: ");
         Paciente paciente = pegarPorCpf(new Scanner(System.in).next());
-        System.out.print("insira o crm do paciente: ");
+        System.out.print("insira o crm do medicos: ");
         Medico medico = pegarPorCrm(new Scanner(System.in).next());
         System.out.print("DATA HORA (dd/MM/yyyy HH:MM) ");
         LocalDateTime dataConsulta = LocalDateTime.parse(new Scanner(System.in).nextLine(), dFormatterH);
@@ -156,7 +156,7 @@ public class DadosEmListas implements GerenciadorConsultas {
         for (Consulta consulta : consultas) {
             if(consulta.getDataConsulta().equals(data) && consulta.getMedico().getCrm().equals(crm)){
                 bool = true;
-                System.out.println();
+                System.out.println("-----------------------------");
                 System.out.println(consulta);
                 System.out.println("-----------------------------");
             }
