@@ -14,6 +14,7 @@ import models.Consulta;
 import models.Medico;
 import models.Paciente;
 import models.StatusConsulta;
+import models.exceptions.FalhaPesquisa;
 
 public class DadosEmListas implements GerenciadorConsultas {
     public static DateTimeFormatter dFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -122,7 +123,8 @@ public class DadosEmListas implements GerenciadorConsultas {
                 return paciente;
             }
         }
-        return null;
+        throw new FalhaPesquisa(cpf+ ": não encontrado");
+        
     }
 
     public Medico pegarPorCrm(String crm) {
@@ -131,7 +133,7 @@ public class DadosEmListas implements GerenciadorConsultas {
                 return medico;
             }
         }
-        return null;
+        throw new FalhaPesquisa(crm+ ": não encontrado");
     }
 
     @Override
@@ -144,11 +146,11 @@ public class DadosEmListas implements GerenciadorConsultas {
         }
 
     }
-
     @Override
     public void exibirConsultasAgendadas(LocalDateTime data, String crm) {
         for (Consulta consulta : consultas) {
             if(consulta.getDataConsulta().equals(data) && consulta.getMedico().getCrm().equals(crm)){
+                System.out.println();
                 System.out.println(consulta);
                 System.out.println("-----------------------------");
             }else if(data.equals(null) || data.equals("") && crm.equals(null) || crm.equals("")){
