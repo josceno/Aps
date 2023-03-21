@@ -18,16 +18,18 @@ class Program {
         DateTimeFormatter dFormatterH = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         while(true){
             
+            System.out.println();
             System.out.println("Cadastro de Médicos (1)");    
             System.out.println("Cadastro de Pacientes (2)");    
             System.out.println("Cadastro de Consultas  (3)");    
             System.out.println("Cancelamento de Consultas (filtro por CPF do Paciente + Data + CRM) (4)");    
-            System.out.println("Consultas Agendadas (filtro por data e CRM) (5)");    
+            System.out.println("Consultas Agendadas (filtro por data e CRM) (5)");   
             
             int opcao; 
             do{
-                System.out.print("-> ");
+                System.out.print(">> ");
                 opcao = new Scanner(System.in).nextInt();
+                System.out.println(); 
             }while(opcao != 1 && opcao !=2 && opcao != 3  && opcao != 4 && opcao !=5 && opcao !=0);
 
             switch(opcao){
@@ -35,7 +37,7 @@ class Program {
                     try {
                         gerenciadorConsultas.cadastrarMedicos();
                     } catch (DateTimeParseException e) {
-                        System.out.println("Formato de data invalido, verifique se a data cadastra esta no fomato dia/mês/ano"
+                        System.out.println("    Erro:Formato de data invalido, verifique se a data cadastra esta no fomato dia/mês/ano"
                         +"\n (observação o dia e mês devem contar dois digitos e o mês precisa ser menor do que 12 o ano deve conter 4 digitos e os items devem se separados por '/')");
                     }finally{
                         break;
@@ -45,7 +47,7 @@ class Program {
                     try {
                         gerenciadorConsultas.cadastrarPacientes();
                     } catch (DateTimeParseException e) {
-                        System.out.println("Formato de data invalido, verifique se a data cadastra esta no fomato dia/mês/ano"
+                        System.out.println("    Erro:Formato de data invalido, verifique se a data cadastra esta no fomato dia/mês/ano"
                         +"\n (observação o dia e mês devem contar dois digitos e o mês precisa ser menor do que 12 o ano deve conter 4 digitos e os items devem se separados por '/')");
                     }finally{
                         break;
@@ -54,7 +56,7 @@ class Program {
                     try {
                         gerenciadorConsultas.cadastrarConsultas();
                     } catch (DateTimeParseException e) {
-                        System.out.println("Formato de data invalido, verifique se a data cadastra esta no fomato dia/mês/ano hora:minuto"
+                        System.out.println("    Erro:Formato de data invalido, verifique se a data cadastra esta no fomato dia/mês/ano hora:minuto"
                         +"\n (observação o dia, mês,hora e minuto devem contar dois digitos e o mês precisa ser menor do que 12 o ano deve conter 4 digitos e os items devem se separados por '/')");
                     }catch(FalhaPesquisa e){
                         System.out.println(e.getMessage());
@@ -73,7 +75,7 @@ class Program {
                         
                         gerenciadorConsultas.cancelarConsultas(cpf, data, crm);
                     } catch (DateTimeParseException e) {
-                        System.out.println("Formato de data invalido, verifique se a data cadastra esta no fomato dia/mês/ano hora:minuto"
+                        System.out.println("    Erro:Formato de data invalido, verifique se a data cadastra esta no fomato dia/mês/ano hora:minuto"
                         +"\n (observação: os campos dia,mês,hora e minuto devem contar dois digitos e o mês precisa ser menor do que 12 o ano deve conter 4 digitos e os items devem se separados por '/')");
                     } catch (FalhaPesquisa e){
                         System.out.println(e.getMessage());
@@ -92,16 +94,14 @@ class Program {
                         
                         gerenciadorConsultas.exibirConsultasAgendadas(dataf,crmf);
                     } catch (DateTimeParseException e) {
-                        System.out.println("Formato de data invalido, verifique se a data cadastra esta no fomato dia/mês/ano hora:minuto"
+                        System.out.println("    Erro:Formato de data invalido, verifique se a data cadastra esta no fomato dia/mês/ano hora:minuto"
                         +"\n (observação: os campos dia,mês,hora e minuto devem contar dois digitos e o mês precisa ser menor do que 12 o ano deve conter 4 digitos e os items devem se separados por '/')");
                     }catch (FalhaPesquisa e){
                         System.out.println(e.getMessage());
                     }finally{
                         break;
-                    }
-            
-            }
-            
+                    }   
+            }     
             if(opcao == 0){
                 System.out.println("Encerrando programa...");    
                 break;
