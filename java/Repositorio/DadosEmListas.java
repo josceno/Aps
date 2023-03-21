@@ -37,16 +37,29 @@ public class DadosEmListas implements GerenciadorConsultas {
         pacientes.add(new Paciente("555.555.555-55", "Lisa Williams", LocalDate.of(1975, 7, 28), LocalDate.now()));
         System.out.println("Populador de Pacientes de teste acionado");
     }
-    /*public static void populadorConsultaTeste(){
-        consultas.add();
-        consultas.add();
-        consultas.add();
-        consultas.add();
-        consultas.add()
-    }*/
+    public static void populadorConsultaTeste(){
+        Paciente paciente =  new Paciente("111.111.111-11", "John Doe", LocalDate.of(1990, 5, 12));
+        Medico medico = new Medico("5678", "Dr. Jane", LocalDate.of(1975, 9, 3));
+        DadosEmListas dl = new DadosEmListas();
+        double valorConsulta = (dl.testasPrimeiraConsulta(paciente)) ? 300.00:350.00;
+        consultas.add( new Consulta(medico, paciente, LocalDateTime.of(2023, 10, 10, 20, 0), "testo", StatusConsulta.AGENDADA, valorConsulta));
+       
+        Paciente paciente1 =  new Paciente("111.111.111-21", "John Doe", LocalDate.of(1990, 5, 12));
+        Medico medico1 = new Medico("1234", "Dr. Jone", LocalDate.of(1975, 9, 3));
+        DadosEmListas dl1 = new DadosEmListas();
+        double valorConsulta1 = (dl1.testasPrimeiraConsulta(paciente1)) ? 300.00:350.00;
+        consultas.add( new Consulta(medico1, paciente1, LocalDateTime.of(2023, 10, 10, 20, 0), "testo", StatusConsulta.AGENDADA, valorConsulta1));
+
+        Paciente paciente12 =  new Paciente("111.111.111-21", "John Doe", LocalDate.of(1990, 5, 12));
+        Medico medico12 = new Medico("5678", "Dr. Jone", LocalDate.of(1975, 9, 3));
+ 
+        double valorConsulta12 = (dl1.testasPrimeiraConsulta(paciente1)) ? 300.00:350.00;
+        consultas.add( new Consulta(medico1, paciente1, LocalDateTime.of(2023, 10, 10, 20, 0), "testo", StatusConsulta.AGENDADA, valorConsulta12));
+    }
 
     @Override
     public void cadastrarMedicos() {
+       
         System.out.println("Cadastre o medico");
         System.out.print("CRM ");
         String crm = new Scanner(System.in).next();
@@ -85,13 +98,12 @@ public class DadosEmListas implements GerenciadorConsultas {
         LocalDateTime dataConsulta = LocalDateTime.parse(new Scanner(System.in).nextLine(), dFormatterH);
         System.out.print("insira flag Destino: ");
         String flagDestino = new Scanner(System.in).nextLine();
-        System.out.print("Consulta status: 1 agendar, 0 cancelada: ");
-        StatusConsulta status = (new Scanner(System.in).nextInt() == 0) ? StatusConsulta.CANCELADA:StatusConsulta.AGENDADA;
+        StatusConsulta status = StatusConsulta.AGENDADA;
         System.out.println("valor da consulta: ");
         double valorConsulta = (testasPrimeiraConsulta(paciente)) ? 300.00:350.00;
         int codigo = consultas.size();
         
-        consultas.add(new Consulta(codigo, medico, paciente, dataConsulta, null, flagDestino, status, valorConsulta));
+        consultas.add(new Consulta(codigo, medico, paciente, dataConsulta, flagDestino, status, valorConsulta));
         
         System.out.println("Cadastro inserido com sucesso");
     }
@@ -136,8 +148,12 @@ public class DadosEmListas implements GerenciadorConsultas {
     @Override
     public void exibirConsultasAgendadas(LocalDateTime data, String crm) {
         for (Consulta consulta : consultas) {
-            if(consulta.getDataConsulta() == data && consulta.getMedico().getCrm() == crm){
+            if(consulta.getDataConsulta().equals(data) && consulta.getMedico().getCrm().equals(crm)){
                 System.out.println(consulta);
+                System.out.println("-----------------------------");
+            }else if(data.equals(null) || data.equals("") && crm.equals(null) || crm.equals("")){
+                System.out.println("Nenhum filtro encotrando, exibindo todas as consultas: ");
+                consultas.forEach(System.out::println);
             }
             
         }

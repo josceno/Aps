@@ -26,12 +26,8 @@ public class Paciente extends Pessoa {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
-        result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-        result = prime * result + ((dataNascimento == null) ? 0 : dataNascimento.hashCode());
-        result = prime * result + ((dataCadastro == null) ? 0 : dataCadastro.hashCode());
         return result;
     }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -46,24 +42,8 @@ public class Paciente extends Pessoa {
                 return false;
         } else if (!cpf.equals(other.cpf))
             return false;
-        if (nome == null) {
-            if (other.nome != null)
-                return false;
-        } else if (!nome.equals(other.nome))
-            return false;
-        if (dataNascimento == null) {
-            if (other.dataNascimento != null)
-                return false;
-        } else if (!dataNascimento.equals(other.dataNascimento))
-            return false;
-        if (dataCadastro == null) {
-            if (other.dataCadastro != null)
-                return false;
-        } else if (!dataCadastro.equals(other.dataCadastro))
-            return false;
         return true;
     }
-
     @Override
     public String toString() {
         return "Paciente [cpf=" + cpf + ", nome=" + nome + ", dataNascimento=" + dataNascimento + ", dataCadastro="

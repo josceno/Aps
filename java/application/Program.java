@@ -2,6 +2,7 @@ package application;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import Repositorio.DadosEmListas;
@@ -12,6 +13,7 @@ class Program {
         GerenciadorConsultas gerenciadorConsultas = new DadosEmListas();
         DadosEmListas.pupuladorMedicosTeste();
         DadosEmListas.pupuladorPacientesTeste();
+        DadosEmListas.populadorConsultaTeste();
         DateTimeFormatter dFormatterH = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         while(true){
             
@@ -25,34 +27,67 @@ class Program {
 
             switch(opcao){
                 case 1:
-                    gerenciadorConsultas.cadastrarMedicos();
-                    break;
+                    try {
+                        gerenciadorConsultas.cadastrarMedicos();
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Formato de data invalido, verifique se a data cadastra esta no fomato dia/mês/ano"
+                        +"\n (observação o dia e mês devem contar dois digitos e o mês precisa ser menor do que 12 o ano deve conter 4 digitos e os items devem se separados por '/')");
+                    }finally{
+                        break;
+                    } 
+                    
                 case 2:
-                    gerenciadorConsultas.cadastrarPacientes();
-                    break;
+                    try {
+                        gerenciadorConsultas.cadastrarPacientes();
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Formato de data invalido, verifique se a data cadastra esta no fomato dia/mês/ano"
+                        +"\n (observação o dia e mês devem contar dois digitos e o mês precisa ser menor do que 12 o ano deve conter 4 digitos e os items devem se separados por '/')");
+                    }finally{
+                        break;
+                    }
                 case 3:
-                    gerenciadorConsultas.cadastrarConsultas();
-                    break;
+                    try {
+                        gerenciadorConsultas.cadastrarConsultas();
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Formato de data invalido, verifique se a data cadastra esta no fomato dia/mês/ano hora:minuto"
+                        +"\n (observação o dia, mês,hora e minuto devem contar dois digitos e o mês precisa ser menor do que 12 o ano deve conter 4 digitos e os items devem se separados por '/')");
+                    }finally{
+                        break;
+                    }
                 case 4:
-                    System.out.println("Filtro para cancelamento:");
-                    System.out.print("cpf: ");
-                    String cpf = new Scanner(System.in).next();
-                    System.out.print("Data da consulta (dd/MM/yyy HH:mm): ");
-                    LocalDateTime data = LocalDateTime.parse(new Scanner(System.in).nextLine(),dFormatterH);
-                    System.out.print("crm: ");
-                    String crm = new Scanner(System.in).next();
+                    try {
+                        System.out.println("Filtro para cancelamento:");
+                        System.out.print("cpf: ");
+                        String cpf = new Scanner(System.in).next();
+                        System.out.print("Data da consulta (dd/MM/yyyy HH:mm): ");
+                        LocalDateTime data = LocalDateTime.parse(new Scanner(System.in).nextLine(),dFormatterH);
+                        System.out.print("crm: ");
+                        String crm = new Scanner(System.in).next();
+                        
+                        gerenciadorConsultas.cancelarConsultas(cpf, data, crm);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Formato de data invalido, verifique se a data cadastra esta no fomato dia/mês/ano hora:minuto"
+                        +"\n (observação: os campos dia,mês,hora e minuto devem contar dois digitos e o mês precisa ser menor do que 12 o ano deve conter 4 digitos e os items devem se separados por '/')");
+                    }finally{
+                        break;
+                    }
                     
-                    gerenciadorConsultas.cancelarConsultas(cpf, data, crm);
-                    break;
                 case 5:
-                    System.out.println("Filtro para exibição:");
-                    System.out.print("crm: ");
-                    String crmf = new Scanner(System.in).next();
-                    System.out.print("Data da consulta (dd/MM/yyy HH:mm): ");
-                    LocalDateTime dataf = LocalDateTime.parse(new Scanner(System.in).next(),dFormatterH);
-                    
-                    gerenciadorConsultas.exibirConsultasAgendadas(dataf,crmf);
-                    break;   
+                    try {
+                        System.out.println("Filtro para exibição:");
+                        System.out.print("crm: ");
+                        String crmf = new Scanner(System.in).next();
+                        System.out.print("Data da consulta (dd/MM/yyy HH:mm): ");
+                        LocalDateTime dataf = LocalDateTime.parse(new Scanner(System.in).nextLine(),dFormatterH);
+                        
+                        gerenciadorConsultas.exibirConsultasAgendadas(dataf,crmf);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Formato de data invalido, verifique se a data cadastra esta no fomato dia/mês/ano hora:minuto"
+                        +"\n (observação: os campos dia,mês,hora e minuto devem contar dois digitos e o mês precisa ser menor do que 12 o ano deve conter 4 digitos e os items devem se separados por '/')");
+                    }finally{
+                        break;
+                    }
+            
             }
             
             if(opcao == 0){

@@ -14,9 +14,16 @@ public class Consulta {
     private StatusConsulta statusConsulta;
     private double valorConsulta;
 
-    public Consulta(int codigo,Medico medico, Paciente paciente, LocalDateTime dataConsulta, LocalDate horaConsulta,
-            String flagDestino, StatusConsulta statusConsulta, double valorConsulta) {
+    public Consulta(int codigo,Medico medico, Paciente paciente, LocalDateTime dataConsulta, String flagDestino, StatusConsulta statusConsulta, double valorConsulta) {
         this.codigo = codigo;
+        this.medico = medico;
+        this.paciente = paciente;
+        this.dataConsulta = dataConsulta;
+        this.flagDestino = flagDestino;
+        this.statusConsulta = statusConsulta;
+        this.valorConsulta = valorConsulta;
+    }
+    public Consulta(Medico medico, Paciente paciente, LocalDateTime dataConsulta, String flagDestino, StatusConsulta statusConsulta, double valorConsulta) {
         this.medico = medico;
         this.paciente = paciente;
         this.dataConsulta = dataConsulta;
