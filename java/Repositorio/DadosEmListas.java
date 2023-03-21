@@ -55,7 +55,7 @@ public class DadosEmListas implements GerenciadorConsultas {
         Medico medico12 = new Medico("5678", "Dr. Jone", LocalDate.of(1975, 9, 3));
  
         double valorConsulta12 = (dl1.testasPrimeiraConsulta(paciente1)) ? 300.00:350.00;
-        consultas.add( new Consulta(medico1, paciente1, LocalDateTime.of(2023, 10, 10, 20, 0), "testo", StatusConsulta.AGENDADA, valorConsulta12));
+        consultas.add( new Consulta(medico12, paciente1, LocalDateTime.of(2023, 10, 10, 20, 0), "testo", StatusConsulta.AGENDADA, valorConsulta12));
     }
 
     @Override
@@ -138,28 +138,32 @@ public class DadosEmListas implements GerenciadorConsultas {
 
     @Override
     public void cancelarConsultas(String cpf, LocalDateTime data, String crm) {
+        boolean sucesso = false;
         for (int i = 0; i<consultas.size(); i++) {
             if(consultas.get(i).getPaciente().getCpf().equals(cpf) && consultas.get(i).getDataConsulta().equals(data) && consultas.get(i).getMedico().getCrm().equals(crm)){
                 consultas.get(i).setStatusConsulta(StatusConsulta.CANCELADA);
                 System.out.println(consultas.get(i)+":  cancelada com sucesso");
             }
         }
-
+        if(!sucesso){
+            throw new FalhaPesquisa("não encontrado items com os seguintes dados: "+data.format(dFormatterH)+" cpf:"+cpf+" crm:"+crm);
+        }
+       
     }
     @Override
     public void exibirConsultasAgendadas(LocalDateTime data, String crm) {
+        boolean bool = false;
         for (Consulta consulta : consultas) {
             if(consulta.getDataConsulta().equals(data) && consulta.getMedico().getCrm().equals(crm)){
+                bool = true;
                 System.out.println();
                 System.out.println(consulta);
                 System.out.println("-----------------------------");
-            }else if(data.equals(null) || data.equals("") && crm.equals(null) || crm.equals("")){
-                System.out.println("Nenhum filtro encotrando, exibindo todas as consultas: ");
-                consultas.forEach(System.out::println);
             }
-            
         }
-       
+        if(!bool){
+            throw new FalhaPesquisa("não encontrado items com os seguintes dados: "+data.format(dFormatterH)+" crm:"+crm);
+        }
     }
 
 }

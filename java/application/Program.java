@@ -75,7 +75,10 @@ class Program {
                     } catch (DateTimeParseException e) {
                         System.out.println("Formato de data invalido, verifique se a data cadastra esta no fomato dia/mês/ano hora:minuto"
                         +"\n (observação: os campos dia,mês,hora e minuto devem contar dois digitos e o mês precisa ser menor do que 12 o ano deve conter 4 digitos e os items devem se separados por '/')");
-                    }finally{
+                    } catch (FalhaPesquisa e){
+                        System.out.println(e.getMessage());
+                    } 
+                    finally{
                         break;
                     }
                     
@@ -91,6 +94,8 @@ class Program {
                     } catch (DateTimeParseException e) {
                         System.out.println("Formato de data invalido, verifique se a data cadastra esta no fomato dia/mês/ano hora:minuto"
                         +"\n (observação: os campos dia,mês,hora e minuto devem contar dois digitos e o mês precisa ser menor do que 12 o ano deve conter 4 digitos e os items devem se separados por '/')");
+                    }catch (FalhaPesquisa e){
+                        System.out.println(e.getMessage());
                     }finally{
                         break;
                     }
